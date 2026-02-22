@@ -24,11 +24,48 @@ const observer = new IntersectionObserver(entries => {
 
 sections.forEach(s => observer.observe(s));
 
-// Contact form handler
-function handleSubmit(e) {
+// Contact form — submits to Formspree and emails info@blueorb-solutions.com
+const contactForm = document.getElementById('contact-form');
+const submitBtn   = document.getElementById('submit-btn');
+const formMsg     = document.getElementById('form-msg');
+
+contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const msg = document.getElementById('form-msg');
-  msg.textContent = 'Thanks! We\'ll be in touch soon.';
-  e.target.reset();
-  setTimeout(() => { msg.textContent = ''; }, 5000);
-}
+  const formId = contactForm.querySelector('[name="_formspree_id"]').value;
+
+  if (formId === 'YOUR_FORM_ID') {
+    formMsg.style.color = '#ff6b6b';
+    formMsg.textContent = 'Form not configured yet. Please add your Formspree form ID.';
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending…';
+  formMsg.style.color = 'var(--accent)';
+  formMsg.textContent = '';
+
+  try {
+    const data = new FormData(contactForm);
+    const res  = await fetch(`https://formspree.io/f/${formId}`, {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    });
+
+    if (res.ok) {
+      formMsg.textContent = "Thanks! We'll be in touch within one business day.";
+      contactForm.reset();
+    } else {
+      const json = await res.json();
+      formMsg.style.color = '#ff6b6b';
+      formMsg.textContent = json.error || 'Something went wrong. Please try again.';
+    }
+  } catch {
+    formMsg.style.color = '#ff6b6b';
+    formMsg.textContent = 'Network error. Please try again.';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Message';
+    setTimeout(() => { formMsg.textContent = ''; formMsg.style.color = 'var(--accent)'; }, 6000);
+  }
+});

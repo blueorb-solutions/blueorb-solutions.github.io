@@ -100,14 +100,17 @@
     <div class="container">
       <h2 class="section-title">Contact Us</h2>
       <p class="section-subtitle">Ready to get started? Reach out and we'll respond within one business day.</p>
-      <form class="contact-form" onsubmit="handleSubmit(event)">
+      <form class="contact-form" id="contact-form">
+        <!-- Replace YOUR_FORM_ID below with your Formspree form ID -->
+        <input type="hidden" name="_formspree_id" value="YOUR_FORM_ID" />
+        <input type="hidden" name="_replyto" value="info@blueorb-solutions.com" />
         <div class="form-row">
           <input type="text" name="name" placeholder="Your Name" required />
           <input type="email" name="email" placeholder="Your Email" required />
         </div>
         <input type="text" name="subject" placeholder="Subject" required />
         <textarea name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
-        <button type="submit" class="btn">Send Message</button>
+        <button type="submit" class="btn" id="submit-btn">Send Message</button>
         <p id="form-msg" class="form-msg"></p>
       </form>
     </div>
