@@ -5,5 +5,5 @@
 
 const CONFIG = {
   // Cloudflare Worker URL — replace after running: cd worker && wrangler deploy
-  workerUrl: 'https://blueorb-contact-worker.REPLACE_WITH_YOUR_CF_SUBDOMAIN.workers.dev',
+  workerUrl: 'https://blueorb-contact-worker.blueorbsolutions.workers.dev',
 };
