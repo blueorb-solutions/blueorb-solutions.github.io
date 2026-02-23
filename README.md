@@ -85,4 +85,4 @@ sequenceDiagram
 
 ## Further Reading
 
-- [ARCHITECTURE.md](ARCHITECTURE.md) — detailed technical reference + Architecture Decision Records
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — detailed technical reference + Architecture Decision Records

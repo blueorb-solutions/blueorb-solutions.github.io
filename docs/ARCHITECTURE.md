@@ -1,7 +1,7 @@
 # BlueOrb Solutions — Architecture
 
 > Full technical reference for how the site is built, deployed, and how the contact form works.
-> See [`README.md`](README.md) for a quick overview.
+> See [`README.md`](../README.md) for a quick overview.
 
 ---
 
@@ -88,10 +88,10 @@ sequenceDiagram
 
 ## Architecture Decision Records
 
-See [`docs/decisions/`](docs/decisions/) for the reasoning behind each major choice.
+See [`decisions/`](decisions/) for the reasoning behind each major choice.
 
 | # | Decision |
 |---|----------|
-| [ADR-001](docs/decisions/001-github-pages-hosting.md) | GitHub Pages for static hosting |
-| [ADR-002](docs/decisions/002-zeptomail-contact-form.md) | ZeptoMail for transactional email |
-| [ADR-003](docs/decisions/003-cloudflare-worker-middleware.md) | Cloudflare Worker as serverless middleware |
+| [ADR-001](decisions/001-github-pages-hosting.md) | GitHub Pages for static hosting |
+| [ADR-002](decisions/002-zeptomail-contact-form.md) | ZeptoMail for transactional email |
+| [ADR-003](decisions/003-cloudflare-worker-middleware.md) | Cloudflare Worker as serverless middleware |
