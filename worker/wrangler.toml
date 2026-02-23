@@ -10,6 +10,6 @@ compatibility_date = "2024-01-01"
 [vars]
 FROM_EMAIL     = "noreply@blueorb-solutions.com"
 FROM_NAME      = "BlueOrb Contact Form"
-TO_EMAIL       = "info@blueorb-solutions.com"
+TO_EMAIL       = "sales@blueorb-solutions.com"
 ALLOWED_ORIGIN = "https://www.blueorb-solutions.com"
 ZEPTO_API_KEY  = "Zoho-enczapikey wSsVR60grEHyCqx7njCtL+4wm11cVQ//HB54jleg63X5GfDE9Mc6lxfPBFOhTqIYEGdgQmQT8Op7yxhW1TJdh9soyA1UCyiF9mqRe1U4J3x17qnvhDzDWGtbkReIK4gKxgptnmdoG80g+g=="
