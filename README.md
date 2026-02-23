@@ -1,13 +1,14 @@
-# BlueOrb Solutions — Architecture
+# BlueOrb Solutions — Website
 
-> Full technical reference for how the site is built, deployed, and how the contact form works.
-> See [`README.md`](README.md) for a quick overview.
+**Live site:** [www.blueorb-solutions.com](https://www.blueorb-solutions.com)
+
+Static business website hosted on GitHub Pages, with a serverless contact form backed by Cloudflare Workers and ZeptoMail.
 
 ---
 
-## 1 · Deployment Pipeline
+## Deployment Pipeline
 
-How code travels from a local machine to production.
+Code travels from a local machine to production via a Git PR workflow.
 
 ```mermaid
 flowchart LR
@@ -36,17 +37,11 @@ flowchart LR
     style WORKER  fill:#1a0f3c,stroke:#9b59b6,color:#e8dfff
 ```
 
-| Step | How |
-|------|-----|
-| Site changes | Feature branch → PR → merge to `main` → GitHub Actions auto-deploys |
-| Worker changes | `cd worker && wrangler deploy` (manual, from any branch) |
-| API key rotation | `wrangler secret put ZEPTO_API_KEY` (never stored in a file) |
-
 ---
 
-## 2 · Contact Form — Runtime Flow
+## Contact Form Flow
 
-What happens, step by step, when a visitor submits the contact form.
+When a visitor submits the form, no email client opens — the message is delivered silently server-side.
 
 ```mermaid
 sequenceDiagram
@@ -75,23 +70,19 @@ sequenceDiagram
 
 ---
 
-## Key Files
+## Tech Stack
 
-| What you want to change | File to edit |
-|-------------------------|--------------|
-| Worker URL (browser side) | `config.js` |
-| Destination / sender email, CORS origin | `worker/wrangler.toml` → `wrangler deploy` |
-| ZeptoMail API key | `wrangler secret put ZEPTO_API_KEY` |
-| Site content / styling | `index.html` / `styles.css` / `script.js` → PR → merge |
+| Layer | Technology |
+|-------|-----------|
+| Hosting | GitHub Pages (free, auto-deploy via GitHub Actions) |
+| DNS | Squarespace DNS → A records + CNAME |
+| Contact form backend | Cloudflare Workers (serverless edge function) |
+| Email delivery | ZeptoMail (Zoho transactional email API) |
+| Email inbox | Zoho Mail — `sales@blueorb-solutions.com` |
+| API key storage | Cloudflare encrypted secret (never in any file) |
 
 ---
 
-## Architecture Decision Records
+## Further Reading
 
-See [`docs/decisions/`](docs/decisions/) for the reasoning behind each major choice.
-
-| # | Decision |
-|---|----------|
-| [ADR-001](docs/decisions/001-github-pages-hosting.md) | GitHub Pages for static hosting |
-| [ADR-002](docs/decisions/002-zeptomail-contact-form.md) | ZeptoMail for transactional email |
-| [ADR-003](docs/decisions/003-cloudflare-worker-middleware.md) | Cloudflare Worker as serverless middleware |
+- [ARCHITECTURE.md](ARCHITECTURE.md) — detailed technical reference + Architecture Decision Records
