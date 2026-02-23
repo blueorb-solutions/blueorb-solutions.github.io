@@ -1,0 +1,37 @@
+flowchart LR
+    VIS(["👤 Visitor"])
+
+    subgraph SITE ["🌐  GitHub Pages  ·  www.blueorb-solutions.com"]
+        direction TB
+        FORM["📝 Contact Form\nindex.html"]
+        JS["script.js\nasync fetch POST"]
+        FORM --> JS
+    end
+
+    subgraph WORKER ["☁️  Cloudflare Worker  ·  blueorb-contact-worker"]
+        direction TB
+        VAL["✅ Validate fields\n+ CORS origin check"]
+        KEY[("🔐 ZEPTO_API_KEY\nCloudflare secret")]
+        KEY -. injected at runtime .-> VAL
+    end
+
+    subgraph ZOHO ["📧  Zoho"]
+        direction TB
+        ZEPTO["ZeptoMail API\ntransactional email"]
+        INBOX["📥 Inbox\nsales@blueorb-solutions.com"]
+        ZEPTO --> INBOX
+    end
+
+    VIS          -->|"fills & submits"| FORM
+    JS           -->|"POST  ·  name  email  subject  message"| VAL
+    VAL          -->|"from: noreply@  ·  reply_to: visitor"| ZEPTO
+    INBOX        -. "Hit Reply → goes straight to visitor" .-> VIS
+    JS           -. "✅  Message sent! We'll be in touch soon." .-> VIS
+
+    style VIS    fill:#0d1f3c,stroke:#4a9eff,color:#e8f4ff,rx:8
+    style FORM   fill:#0d1f3c,stroke:#4a9eff,color:#e8f4ff
+    style JS     fill:#0d1f3c,stroke:#4a9eff,color:#e8f4ff
+    style VAL    fill:#1a0f3c,stroke:#9b59b6,color:#e8dfff
+    style KEY    fill:#3c0f0f,stroke:#e74c3c,color:#ffe8e8
+    style ZEPTO  fill:#0f2e1a,stroke:#27ae60,color:#e8ffee
+    style INBOX  fill:#0f2e1a,stroke:#27ae60,color:#e8ffee
