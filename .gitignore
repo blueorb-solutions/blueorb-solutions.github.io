@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Wrangler local build cache
+worker/.wrangler/
+
+# Editor
+.vscode/
+.idea/
