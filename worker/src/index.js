@@ -9,7 +9,11 @@
 
 export default {
   async fetch(request, env) {
-    const reply = (body, status) => cors(body, status, env.ALLOWED_ORIGIN);
+    // Allow production origin and localhost for local testing
+    const requestOrigin = request.headers.get('Origin') ?? '';
+    const allowed = [env.ALLOWED_ORIGIN, env.ALLOWED_ORIGIN_LOCAL];
+    const origin = allowed.includes(requestOrigin) ? requestOrigin : env.ALLOWED_ORIGIN;
+    const reply = (body, status) => cors(body, status, origin);
 
     if (request.method === 'OPTIONS') {
       return reply(null, 204);
