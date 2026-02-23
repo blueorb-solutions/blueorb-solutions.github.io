@@ -1,0 +1,14 @@
+name = "blueorb-contact-worker"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# ---------------------------------------------------------------------------
+# Non-secret configuration — safe to commit, repo can be public.
+# ZEPTO_API_KEY is stored as a Cloudflare secret (never in this file).
+# To update it: wrangler secret put ZEPTO_API_KEY
+# ---------------------------------------------------------------------------
+[vars]
+FROM_EMAIL     = "noreply@blueorb-solutions.com"
+FROM_NAME      = "BlueOrb Contact Form"
+TO_EMAIL       = "sales@blueorb-solutions.com"
+ALLOWED_ORIGIN = "https://www.blueorb-solutions.com"
