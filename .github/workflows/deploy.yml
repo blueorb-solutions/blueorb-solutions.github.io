@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  # Triggers automatically on every merge to main
+  workflow_dispatch:  # Allows manual trigger from GitHub Actions tab
 
 # Grant Actions permission to deploy to Pages
 permissions:
