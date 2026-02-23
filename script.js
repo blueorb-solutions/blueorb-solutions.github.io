@@ -25,7 +25,6 @@ const observer = new IntersectionObserver(entries => {
 sections.forEach(s => observer.observe(s));
 
 // Contact form — submits silently via Cloudflare Worker → ZeptoMail → inbox
-const WORKER_URL = 'https://blueorb-contact-worker.REPLACE_WITH_YOUR_CF_SUBDOMAIN.workers.dev';
 
 document.getElementById('contact-form').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -43,7 +42,7 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
   msg.textContent = '';
 
   try {
-    const res = await fetch(WORKER_URL, {
+    const res = await fetch(CONFIG.workerUrl, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ name, email, subject, message }),

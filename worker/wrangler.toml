@@ -1,3 +1,13 @@
 name = "blueorb-contact-worker"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
+
+# ---------------------------------------------------------------------------
+# Non-secret configuration — edit here without touching worker code.
+# Secrets (ZEPTO_API_KEY) are stored via: wrangler secret put ZEPTO_API_KEY
+# ---------------------------------------------------------------------------
+[vars]
+FROM_EMAIL    = "noreply@blueorb-solutions.com"
+FROM_NAME     = "BlueOrb Contact Form"
+TO_EMAIL      = "info@blueorb-solutions.com"
+ALLOWED_ORIGIN = "https://www.blueorb-solutions.com"
