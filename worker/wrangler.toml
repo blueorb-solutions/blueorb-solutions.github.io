@@ -3,13 +3,12 @@ main = "src/index.js"
 compatibility_date = "2024-01-01"
 
 # ---------------------------------------------------------------------------
-# Configuration — edit here without touching worker code.
-# Private repo only. To upgrade security later: remove ZEPTO_API_KEY from
-# here and run: wrangler secret put ZEPTO_API_KEY
+# Non-secret configuration — safe to commit, repo can be public.
+# ZEPTO_API_KEY is stored as a Cloudflare secret (never in this file).
+# To update it: wrangler secret put ZEPTO_API_KEY
 # ---------------------------------------------------------------------------
 [vars]
 FROM_EMAIL     = "noreply@blueorb-solutions.com"
 FROM_NAME      = "BlueOrb Contact Form"
 TO_EMAIL       = "sales@blueorb-solutions.com"
 ALLOWED_ORIGIN = "https://www.blueorb-solutions.com"
-ZEPTO_API_KEY  = "Zoho-enczapikey wSsVR60grEHyCqx7njCtL+4wm11cVQ//HB54jleg63X5GfDE9Mc6lxfPBFOhTqIYEGdgQmQT8Op7yxhW1TJdh9soyA1UCyiF9mqRe1U4J3x17qnvhDzDWGtbkReIK4gKxgptnmdoG80g+g=="
