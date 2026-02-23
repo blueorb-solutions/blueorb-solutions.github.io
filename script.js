@@ -24,23 +24,44 @@ const observer = new IntersectionObserver(entries => {
 
 sections.forEach(s => observer.observe(s));
 
-// Contact form — opens visitor's email client addressed to info@blueorb-solutions.com
-document.getElementById('contact-form').addEventListener('submit', (e) => {
+// Contact form — submits silently via Cloudflare Worker → ZeptoMail → inbox
+const WORKER_URL = 'https://blueorb-contact-worker.REPLACE_WITH_YOUR_CF_SUBDOMAIN.workers.dev';
+
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const f = e.target;
+  const f   = e.target;
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('form-msg');
+
   const name    = f.querySelector('[name="name"]').value.trim();
   const email   = f.querySelector('[name="email"]').value.trim();
   const subject = f.querySelector('[name="subject"]').value.trim();
   const message = f.querySelector('[name="message"]').value.trim();
 
-  const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-  window.location.href =
-    `mailto:info@blueorb-solutions.com` +
-    `?subject=${encodeURIComponent(subject)}` +
-    `&body=${encodeURIComponent(body)}`;
+  btn.disabled    = true;
+  btn.textContent = 'Sending…';
+  msg.textContent = '';
 
-  const msg = document.getElementById('form-msg');
-  msg.textContent = 'Opening your email client…';
-  f.reset();
-  setTimeout(() => { msg.textContent = ''; }, 5000);
+  try {
+    const res = await fetch(WORKER_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ name, email, subject, message }),
+    });
+
+    if (res.ok) {
+      msg.style.color = 'var(--accent)';
+      msg.textContent = "Message sent! We'll be in touch soon.";
+      f.reset();
+    } else {
+      msg.style.color = '#ff6b6b';
+      msg.textContent = 'Something went wrong. Please try again.';
+    }
+  } catch {
+    msg.style.color = '#ff6b6b';
+    msg.textContent = 'Network error. Please check your connection and try again.';
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = 'Send Message';
+  }
 });
